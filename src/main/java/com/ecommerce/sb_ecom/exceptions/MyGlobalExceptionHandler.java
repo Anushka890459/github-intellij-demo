@@ -12,7 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
-@ControllerAdvice
+
+
 public class MyGlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -27,4 +28,14 @@ public class MyGlobalExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-}
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        return new ResponseEntity<>("Resource not found: " + ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(APIExceptions.class)
+    public ResponseEntity<String> myAPIExceptions(APIExceptions ex) {
+        return new ResponseEntity<>("Resource not found: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    }
+
+
